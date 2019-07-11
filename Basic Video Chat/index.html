@@ -10,13 +10,30 @@
     <!-- Polyfill for fetch API so that we can fetch the sessionId and token in IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js" charset="utf-8"></script>
+    <style>
+        #toggle-video {
+            position: absolute;
+            top: 10px;
+            right: -20px;
+            transform: translateX(100%);
+            cursor: pointer;
+            background: #d8d8d8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #toggle-video:hover {
+            background: #a3a3a3;
+        }
+    </style>
 </head>
 
 <body>
 
     <div id="videos">
         <div id="subscriber"></div>
-        <div id="publisher"></div>
+        <div id="publisher">
+            <div id="toggle-video"></div>
+        </div>
     </div>
 
     <!-- Credit to Tim Holman for the Github corners http://tholman.com/github-corners/ -->

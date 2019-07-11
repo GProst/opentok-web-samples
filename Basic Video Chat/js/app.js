@@ -10,6 +10,10 @@ function handleError(error) {
   }
 }
 
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var toggleVideoButton = document.getElementById('toggle-video');
+toggleVideoButton.innerText = isChrome ? 'Enable video' : 'Disable video';
+
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
 
@@ -31,9 +35,15 @@ function initializeSession() {
   var publisherOptions = {
     insertMode: 'append',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    publishVideo: !isChrome // don't publish video initially if in Chrome
   };
   var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  toggleVideoButton.addEventListener('click', function() {
+    var nextHasVideo = !publisher.stream.hasVideo
+    publisher.publishVideo(nextHasVideo)
+    toggleVideoButton.innerText = nextHasVideo ? 'Disable video' : 'Enable video';
+  })
 
   // Connect to the session
   session.connect(token, function callback(error) {
